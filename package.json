@@ -11,7 +11,7 @@
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "lint": "tsc"
   },
-  "author": "Louie Richardson",
+  "author": "Louie Richardson <louie@louierichardson.com> (https://louierichardson.com)",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.9.0",
