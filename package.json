@@ -1,6 +1,6 @@
 {
   "name": "umbraco-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Umbraco client designed to make interacting with the Umbraco Content Delivery API a whole lot easier.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
