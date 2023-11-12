@@ -29,7 +29,7 @@ export const client = createClient('https://example.com')
 ## Usage
 
 ```js
-import client from './umbraco-client'
+import { client } from './umbraco-client'
 
 const homepage = await client.getContentById('homePage')
 
