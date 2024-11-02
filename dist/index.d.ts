@@ -1,13 +1,25 @@
+type Sort = {
+    type: 'createDate' | 'updateDate' | 'sortOrder' | 'name' | 'level';
+    order: 'asc' | 'desc';
+};
+type Expand = 'all' | string[];
 type Options = {
-    sort?: {
-        type: 'createDate' | 'updateDate' | 'sortOrder' | 'name' | 'level';
-        order: 'asc' | 'desc';
-    };
-    expand?: 'all' | string[];
+    sort?: Sort;
+    expand?: Expand;
 };
-declare function createClient(domain: string): {
-    getContentById: (id: string) => Promise<any>;
-    getContentByType: (itemType: string, options?: Options) => Promise<any>;
-};
+
+declare class UmbracoClient {
+    private deliveryApiUrl;
+    constructor({ baseUrl, version }: {
+        baseUrl: string;
+        version: string;
+    });
+    getContentById(id: string): Promise<any>;
+    getContentByType(itemType: string, options?: Options): Promise<any>;
+}
+
+declare const createClient: (baseUrl: string, { version }?: {
+    version?: string | undefined;
+}) => UmbracoClient;
 
 export { createClient as default };

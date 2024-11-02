@@ -19,8 +19,7 @@ var __async = (__this, __arguments, generator) => {
   });
 };
 
-// src/createClient.ts
-var DELIVERY_API_PATH = "/umbraco/delivery/api/v1/content";
+// src/utils/params.ts
 function getSortParam(sort) {
   if (!sort)
     return "";
@@ -38,28 +37,38 @@ function getExpandParam(expand) {
   }
   return expandParam;
 }
-function createClient(domain) {
-  const deliveryApiUrl = `${domain}${DELIVERY_API_PATH}`;
-  return {
-    getContentById: (id) => __async(this, null, function* () {
-      const response = yield fetch(`${deliveryApiUrl}/item/${id}`);
+
+// src/UmbracoClient.ts
+var UmbracoClient = class {
+  constructor({ baseUrl, version }) {
+    this.deliveryApiUrl = `${baseUrl}/umbraco/delivery/api/${version}/content`;
+  }
+  getContentById(id) {
+    return __async(this, null, function* () {
+      const response = yield fetch(`${this.deliveryApiUrl}/item/${id}`);
       const data = yield response.json();
       return data;
-    }),
-    getContentByType: (itemType, options) => __async(this, null, function* () {
+    });
+  }
+  getContentByType(itemType, options) {
+    return __async(this, null, function* () {
       const { sort, expand } = options || {};
       const response = yield fetch(
-        `${deliveryApiUrl}?filter=contentType:${itemType}${getSortParam(
+        `${this.deliveryApiUrl}?filter=contentType:${itemType}${getSortParam(
           sort
         )}${getExpandParam(expand)}`
       );
       const data = yield response.json();
       return data.items;
-    })
-  };
-}
+    });
+  }
+};
+var UmbracoClient_default = UmbracoClient;
 
 // src/index.ts
+var createClient = (baseUrl, { version = "v2" } = {}) => {
+  return new UmbracoClient_default({ baseUrl, version });
+};
 var src_default = createClient;
 export {
   src_default as default
