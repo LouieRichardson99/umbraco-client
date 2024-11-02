@@ -8,6 +8,13 @@ class UmbracoClient {
     this.deliveryApiUrl = `${baseUrl}/umbraco/delivery/api/${version}/content`;
   }
 
+  public async getAllContent() {
+    const response = await fetch(`${this.deliveryApiUrl}?expand=all`);
+    const data = await response.json();
+
+    return data.items;
+  }
+
   public async getContentById(id: string) {
     const response = await fetch(`${this.deliveryApiUrl}/item/${id}`);
     const data = await response.json();
