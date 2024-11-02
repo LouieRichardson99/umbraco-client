@@ -14,6 +14,7 @@ declare class UmbracoClient {
         baseUrl: string;
         version: string;
     });
+    getAllContent(): Promise<any>;
     getContentById(id: string): Promise<any>;
     getContentByType(itemType: string, options?: Options): Promise<any>;
 }

@@ -11,10 +11,6 @@ Install the client from [npm](https://www.npmjs.com/):
 
 ```sh
 npm install umbraco-client
-
-# Alternative package managers
-yarn add umbraco-client
-pnpm install umbraco-client
 ```
 
 Import `umbraco-client`, and create a new client instance. Below is a simple example in JavaScript.
@@ -29,11 +25,13 @@ export const client = createClient('https://example.com')
 ## Usage
 
 ```js
-import { client } from './umbraco-client'
+import { client } from './umbraco-client';
 
-const homepage = await client.getContentById('homePage')
+const homepage = await client.getContentById('homePage');
 
 const blogPosts = await client.getContentByType('blogPost', {
   sort: { type: 'createDate', order: 'asc' }
-})
+});
+
+const allContent = await client.getAllContent();
 ```

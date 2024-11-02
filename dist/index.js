@@ -68,6 +68,13 @@ var UmbracoClient = class {
   constructor({ baseUrl, version }) {
     this.deliveryApiUrl = `${baseUrl}/umbraco/delivery/api/${version}/content`;
   }
+  getAllContent() {
+    return __async(this, null, function* () {
+      const response = yield fetch(`${this.deliveryApiUrl}?expand=all`);
+      const data = yield response.json();
+      return data.items;
+    });
+  }
   getContentById(id) {
     return __async(this, null, function* () {
       const response = yield fetch(`${this.deliveryApiUrl}/item/${id}`);
